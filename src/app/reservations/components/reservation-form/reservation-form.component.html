@@ -1,0 +1,151 @@
+<h2 class="text-center mb-4">Reserva tu cita</h2>
+
+<form
+  [formGroup]="reservationForm"
+  (ngSubmit)="sendReservationRequest()"
+  class="container"
+  novalidate
+>
+  <div class="row">
+    <!-- Columna izquierda -->
+    <div class="col-12 col-md-6">
+      <div>
+        <label for="name" class="form-label">Nombre</label>
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Introduce tu nombre completo</mat-label>
+          <input matInput id="name" type="text" formControlName="name" />
+          <mat-error
+            *ngIf="
+              reservationForm.get('name')?.touched &&
+              reservationForm.get('name')?.invalid
+            "
+          >
+            El nombre es obligatorio.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <label for="email" class="form-label">Email</label>
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>ejemplo&#64;correo.com</mat-label>
+          <input matInput id="email" type="email" formControlName="email" />
+          <mat-error
+            *ngIf="
+              reservationForm.get('email')?.touched &&
+              reservationForm.get('email')?.invalid
+            "
+          >
+            Introduce un email válido.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <label for="phone" class="form-label">Teléfono</label>
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>+34 600 123 456</mat-label>
+          <input matInput id="phone" type="tel" formControlName="phone" />
+          <mat-error
+            *ngIf="
+              reservationForm.get('phone')?.touched &&
+              reservationForm.get('phone')?.invalid
+            "
+          >
+            Teléfono no válido.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Columna derecha -->
+    <div class="col-12 col-md-6">
+      <div>
+        <label for="date" class="form-label">Fecha</label>
+        <mat-form-field appearance="fill" class="w-100">
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="date"
+            placeholder="Selecciona la fecha"
+            [matDatepickerFilter]="bloquearFechas"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+
+          <mat-error
+            *ngIf="
+              reservationForm.get('date')?.touched &&
+              reservationForm.get('date')?.invalid
+            "
+          >
+            La fecha es obligatoria.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <label for="hour" class="form-label">Hora</label>
+        <mat-form-field appearance="fill" class="w-100">
+          <input
+            matInput
+            matTimepickerMin="08:00"
+            matTimepickerMax="19:00"
+            [matTimepicker]="picker1"
+            formControlName="hour"
+            placeholder="Selecciona la hora"
+          />
+          <mat-timepicker-toggle matIconSuffix [for]="picker1" />
+          <mat-timepicker #picker1 interval="60min" />
+
+          <mat-error
+            *ngIf="
+              reservationForm.get('hour')?.touched &&
+              reservationForm.get('hour')?.invalid
+            "
+          >
+            La hora es obligatoria.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <label for="service" class="form-label">Servicio</label>
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-select id="service" formControlName="service">
+            <mat-option value="" [disabled]="true">Selecciona uno</mat-option>
+            <mat-option value="Fisioterapia Deportiva"
+              >Fisioterapia Deportiva</mat-option
+            >
+            <mat-option value="Rehabilitación">Rehabilitación</mat-option>
+            <mat-option value="Masaje terapéutico"
+              >Masaje terapéutico</mat-option
+            >
+          </mat-select>
+
+          <mat-error
+            *ngIf="
+              reservationForm.get('service')?.touched &&
+              reservationForm.get('service')?.invalid
+            "
+          >
+            El servicio es obligatorio.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-auto mx-auto">
+      <button type="submit" class="btn btn-primary w-100">Reservar</button>
+    </div>
+  </div>
+</form>
+
+<div *ngIf="reservationConfirmed" class="alert alert-success mt-4 text-center">
+  ¡Reserva confirmada! Te contactaremos pronto.
+</div>
