@@ -8,6 +8,7 @@ import { NuestrosServiciosComponent } from './components/nuestros-servicios/nues
 import { SobreNosotrosComponent } from './components/sobre-nosotros/sobre-nosotros.component';
 import { ContactoComponent } from './components/contacto/contacto.component';
 import { HeroComponent } from './components/hero/hero.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { HeroComponent } from './components/hero/hero.component';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    SharedModule
+    SharedModule,
+    TranslateModule
   ]
 })
 export class HomeModule { }

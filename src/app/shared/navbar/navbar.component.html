@@ -2,11 +2,12 @@
   <div class="container">
     <div class="d-flex justify-content-between w-100">
       <a class="navbar-brand" href="/">PhysioCore</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mb-2 mb-lg-0 me-3">
         <li class="nav-item">
           <a class="nav-link" href="#">INICIO</a>
@@ -23,6 +24,12 @@
       </ul>
 
       <div class="d-flex align-items-center">
+        <select class="form-select form-select-sm w-auto me-2" (change)="changeLanguage($event)">
+          <option value="" selected disabled>Idioma</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+        </select>
+
         <a class="btn btn-outline-primary text-nowrap me-2" href="#">Iniciar sesión</a>
         <a class="btn btn-primary" href="#">Registrarse</a>
       </div>
