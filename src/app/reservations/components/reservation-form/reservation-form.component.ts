@@ -24,7 +24,7 @@ export class ReservationFormComponent implements OnInit {
     });
   }
 
-  bloquearFechas = (d: Date | null): boolean => {
+  bloquearFechas = (d: Date | null): boolean => { // Filtro fechas válidas
     const date = d || new Date();
     const day = date.getDay();
 
@@ -37,22 +37,19 @@ export class ReservationFormComponent implements OnInit {
     return !esFinDeSemana && !esAñoNuevo && !esReyes;
   }
 
-  sendReservationRequest() {
-    const reservationData = this.reservationForm.value;
-
+  onSubmit() {
     if (!this.reservationForm.valid) {
       this.reservationForm.markAllAsTouched();
       return;
     }
-
-    const reservationRequest = this.formatReservationRequest(reservationData);
+    const reservationData = this.formatReservationRequest(this.reservationForm.value);
 
     // TODO: Enviamos la solicitud de reserva al servidor
 
     this.reservationForm.reset();
   }
 
-  private formatReservationRequest(formValue: any): any {
+  private formatReservationRequest(formValue: any): any { // Formatear fecha y hora, para envio correcto backend
     const { name, email, phone, service, date, hour } = formValue;
 
     const formattedDate = date.toISOString().split('T')[0];
