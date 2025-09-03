@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -9,14 +10,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
+  success: boolean = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private authService: AuthService) { }
 
   ngOnInit(): void { // Inicializamos validadores formulario
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
-      surnames: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      surname: ['', Validators.required],
+      username: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
@@ -29,6 +31,20 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    // TODO: Enviarlo al backend
+    this.authService.register(registerData).subscribe({
+      next: (response) => {
+        console.log('Registro exitoso', response);
+        this.success = true;
+        // Resetear formulario después del registro exitoso
+        this.registerForm.reset();
+
+        setTimeout(() => {
+          this.success = false; // Ocultar mensaje de éxito después de 5 segundos
+        }, 10000);
+      },
+      error: (error) => {
+        console.error('Error en el registro', error);
+      }
+    });
   }
 }

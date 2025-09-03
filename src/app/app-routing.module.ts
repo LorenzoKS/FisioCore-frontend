@@ -13,6 +13,10 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule), // Lazy load the AuthModule
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./user-profile/user-profile.module').then(m => m.UserProfileModule) // Lazy load the UserProfileModule
   }
 ];
 

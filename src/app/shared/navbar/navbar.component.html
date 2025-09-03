@@ -32,8 +32,10 @@
           <option value="es">Español</option>
         </select>
 
-        <a class="btn btn-outline-primary text-nowrap me-2" [routerLink]="['/auth/iniciar-sesion']">Iniciar sesión</a>
-        <a class="btn btn-primary" [routerLink]="['/auth/registrarse']">Registrarse</a>
+        <a *ngIf="!isLoggedIn" class="btn btn-outline-primary text-nowrap me-2" [routerLink]="['/auth/iniciar-sesion']">Iniciar sesión</a>
+        <a *ngIf="!isLoggedIn" class="btn btn-primary" [routerLink]="['/auth/registrarse']">Registrarse</a>
+        <a *ngIf="isLoggedIn" [routerLink]="['/perfil']" class="btn btn-primary me-2">Datos Usuario</a>
+        <button *ngIf="isLoggedIn" (click)="logout()" class="btn btn-danger">Cerrar Sesión</button>
       </div>
     </div>
   </div>
